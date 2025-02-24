@@ -279,7 +279,14 @@ def visualize_cumulative_area(df: pd.DataFrame, output_dir: str):
         ),
         template='plotly_white',
         height=900,
-        shapes=shapes
+        shapes=shapes,
+        legend=dict(
+            x=0.5,
+            y=1,
+            xanchor='center',
+            yanchor='top',
+            bgcolor='rgba(255,255,255,0.5)'
+        )
     )
 
     # Add dummy traces to explain the area colors in the legend
@@ -298,34 +305,11 @@ def visualize_cumulative_area(df: pd.DataFrame, output_dir: str):
         name='Negative Cumulative $OX PNL Area'
     ))
 
-    fig_area.update_layout(
-        title=title_text,
-        xaxis=dict(
-            title='Date',
-            tickformat='%Y-%m-%d',
-            tickangle=45
-        ),
-        yaxis=dict(
-            title='Cumulative PNL (OX)'
-        ),
-        template='plotly_white',
-        height=900,
-        shapes=shapes,
-        legend=dict(
-            x=0,
-            y=1,
-            xanchor='left',
-            yanchor='top',
-            bgcolor='rgba(255,255,255,0.5)'
-        )
-    )
-
-
     cumulative_div = pio.to_html(fig_area, include_plotlyjs=False, full_html=False)
 
     png_output_path_area = os.path.join(output_dir, 'cumulative_pnl_area_chart.png')
     try:
-        fig_area.write_image(png_output_path_area)
+        fig_area.write_image(png_output_path_area, width=1800, height=900)
         print(f"Static cumulative PNL area chart saved to {png_output_path_area}")
     except Exception as e:
         print(f"Error saving PNG cumulative area chart: {e}")
@@ -393,21 +377,21 @@ def visualize_pnl(df: pd.DataFrame, output_dir: str):
         hoverinfo='skip'
     ))
 
-    # Update layout for dual y-axis and set chart height
+    # Update layout for dual y-axis and set chart height with a more descriptive title
     fig_pnl.update_layout(
-        title='Daily and Cumulative PNL (OX)',
+        title='Daily and Cumulative $OX PNL Chart: Left axis = Daily $OX PNL (bar chart), Right axis = Cumulative $OX PNL (line chart)',
         xaxis=dict(
             title='Date',
             tickformat='%Y-%m-%d',
             tickangle=45
         ),
         yaxis=dict(
-            title='Daily PNL (OX)',
+            title='Daily $OX PNL',
             titlefont=dict(color='green'),
             tickfont=dict(color='green')
         ),
         yaxis2=dict(
-            title='Cumulative PNL (OX)',
+            title='Cumulative $OX PNL',
             titlefont=dict(color='blue'),
             tickfont=dict(color='blue'),
             overlaying='y',
@@ -526,6 +510,7 @@ def visualize_pnl(df: pd.DataFrame, output_dir: str):
                 margin: 20px;
                 display: flex;
                 justify-content: center;
+                position: relative;
             }}
             .content {{
                 width: 80%;
@@ -540,9 +525,25 @@ def visualize_pnl(df: pd.DataFrame, output_dir: str):
             h1, h2, h3 {{
                 text-align: center;
             }}
+            .github-link {{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                padding-top: 10px;
+                padding-right: 10px;
+            }}
+            .github-link img {{
+                width: 32px;
+                height: 32px;
+            }}
         </style>
     </head>
     <body>
+        <div class="github-link">
+            <a href="https://github.com/vmeylan/oxfun-lp-vault-analysis" target="_blank" rel="noopener noreferrer">
+                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+            </a>
+        </div>
         <div class="content">
             <h1>OXFUN LP Vault Performance Analysis Report</h1>
             <h3>"the main counterparty to most traders on the exchange", <a href="https://ox.fun/en/vaults/profile/110428" target="_blank" rel="noopener noreferrer" style="color: blue; text-decoration: underline;">vault 110428</a></h3>
@@ -554,12 +555,12 @@ def visualize_pnl(df: pd.DataFrame, output_dir: str):
             </div>
 
             <div class="plot-container">
-                <h3>Daily and Cumulative PNL (OX)</h3>
+                <h3>Daily and Cumulative $OX PNL Chart</h3>
                 {pnl_div}
             </div>
 
             <div class="plot-container">
-                <h3>Distribution of Daily PNL</h3>
+                <h3>Distribution of Daily PNL (OX)</h3>
                 {hist_div}
             </div>
 
@@ -601,7 +602,7 @@ def visualize_pnl(df: pd.DataFrame, output_dir: str):
     # Save plots as static PNG images
     png_output_path_pnl = os.path.join(output_dir, 'daily_cumulative_pnl_chart.png')
     try:
-        fig_pnl.write_image(png_output_path_pnl)
+        fig_pnl.write_image(png_output_path_pnl, width=1800, height=900)
         print(f"Static Daily and Cumulative PNL (OX) chart saved to {png_output_path_pnl}")
     except Exception as e:
         print(f"Error saving PNG plot: {e}")
@@ -610,7 +611,7 @@ def visualize_pnl(df: pd.DataFrame, output_dir: str):
 
     png_output_path_hist = os.path.join(output_dir, 'pnl_histogram.png')
     try:
-        fig_hist.write_image(png_output_path_hist)
+        fig_hist.write_image(png_output_path_hist, width=1800, height=900)
         print(f"Static PNL histogram saved to {png_output_path_hist}")
     except Exception as e:
         print(f"Error saving PNG plot: {e}")
