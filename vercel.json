@@ -1,0 +1,17 @@
+{
+  "builds": [
+    {
+      "src": "copy_latest_report.sh",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "public"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}

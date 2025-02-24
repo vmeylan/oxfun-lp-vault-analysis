@@ -1,6 +1,6 @@
 # OXFUN LP Vault Analysis
 
-This repository contains Python scripts to scrape, analyze, and visualize performance data for the [OXFUN Liquidity Provider Strategy vault](https://ox.fun/en/vaults/profile/110428). Data is scraped using Selenium, processed with Pandas, and visualized with Plotly. The generated HTML reports and charts are intended to be hosted on Vercel.
+This repository contains Python scripts to scrape, analyze, and visualize performance data for the [OXFUN Liquidity Provider Strategy vault](https://ox.fun/en/vaults/profile/110428). Data is scraped using Selenium, processed with Pandas, and visualized with Plotly. The generated HTML reports and charts are hosted on Vercel.
 
 ## Setup
 
@@ -32,4 +32,4 @@ A GitHub Actions workflow is configured to run the vault and analysis scripts da
 
 ## Deployment
 
-The latest HTML report (from the most recent date folder in the `data` directory) is designed to be hosted on Vercel.
+The latest HTML report (from the most recent date folder in the `data` directory) is hosted on Vercel.
