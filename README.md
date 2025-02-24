@@ -17,12 +17,12 @@ bash setup.sh
 
 ## Running Locally
 
-Activate the virtual environment and run the scripts from the `analysis` folder:
+Activate the virtual environment and run the scripts from the `src/analysis` folder:
 ```
-cd analysis
+cd src/analysis
 source ../venv/bin/activate
-python oxfun_vault.py    # Scrapes vault data and saves CSV files
-python analyse_data.py    # Analyzes data and generates HTML reports/charts
+python oxfun_vault.py    # Scrapes vault data and saves CSV files in the data folder
+python analyse_data.py    # Analyzes data and generates HTML reports/charts in the data folder
 deactivate
 ```
 
