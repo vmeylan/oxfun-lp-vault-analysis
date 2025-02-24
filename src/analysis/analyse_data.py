@@ -629,7 +629,7 @@ def main():
 
     # Define the root directory (repo root)
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    repo_root = os.path.abspath(os.path.join(script_dir, os.pardir))
+    repo_root = os.path.abspath(os.path.join(script_dir, os.pardir, os.pardir))
     data_dir = os.path.join(repo_root, 'data', today_str)
 
     # Check if the data directory exists
