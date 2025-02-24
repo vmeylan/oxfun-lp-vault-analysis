@@ -17,13 +17,13 @@ jobs:
         run: bash setup.sh
 
       - name: Run OXFUN Vault script
-        working-directory: analysis
+        working-directory: src/analysis
         run: |
-          source ../venv/bin/activate
+          source ../../venv/bin/activate
           python oxfun_vault.py
 
       - name: Run Analyse Data script
-        working-directory: analysis
+        working-directory: src/analysis
         run: |
-          source ../venv/bin/activate
+          source ../../venv/bin/activate
           python analyse_data.py
