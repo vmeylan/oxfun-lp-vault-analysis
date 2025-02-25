@@ -4,9 +4,9 @@ on:
   schedule:
     - cron: '0 0 * * *'  # Runs daily at midnight UTC
   workflow_dispatch:
-  push:  # Trigger the workflow on any push to the repository
+  push:
     branches:
-      - main  # Change this if your default branch is different
+      - main  # Adjust this if needed
 
 jobs:
   run-scripts:
@@ -23,17 +23,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable unzip
 
-      - name: Setup ChromeDriver
+      - name: Setup ChromeDriver using WebDriver Manager
         run: |
-          CHROME_VERSION=$(google-chrome --version | awk '{print $3}')
-          curl -sSL "https://storage.googleapis.com/chrome-for-testing-public/$CHROME_VERSION/linux64/chromedriver-linux64.zip" -o chromedriver.zip
-          unzip chromedriver.zip
-          chmod +x chromedriver-linux64/chromedriver
-          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
-
-      - name: Kill any running Chrome processes
-        run: |
-          pkill -f chrome || true
+          pip install --upgrade pip
+          pip install selenium webdriver-manager
 
       - name: Run setup script
         run: bash setup.sh

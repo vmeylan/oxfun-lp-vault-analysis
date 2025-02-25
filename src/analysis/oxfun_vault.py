@@ -220,7 +220,7 @@ def main():
         # Define the root directory (repo root)
         script_dir = os.path.dirname(os.path.abspath(__file__))
         repo_root = os.path.abspath(os.path.join(script_dir, os.pardir))
-        data_dir = os.path.join(repo_root, 'data', today_str)
+        data_dir = os.path.join(repo_root, '../data', today_str)
 
         # Create the data directory if it doesn't exist
         os.makedirs(data_dir, exist_ok=True)
