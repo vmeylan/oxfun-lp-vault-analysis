@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: '0 0 * * *'  # Runs daily at midnight UTC
   workflow_dispatch:
+  push:  # Trigger the workflow on any push to the repository
+    branches:
+      - main  # Change this if your default branch is different
 
 jobs:
   run-scripts:
@@ -14,6 +17,23 @@ jobs:
         uses: actions/checkout@v3
         with:
           persist-credentials: true
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable unzip
+
+      - name: Setup ChromeDriver
+        run: |
+          CHROME_VERSION=$(google-chrome --version | awk '{print $3}')
+          curl -sSL "https://storage.googleapis.com/chrome-for-testing-public/$CHROME_VERSION/linux64/chromedriver-linux64.zip" -o chromedriver.zip
+          unzip chromedriver.zip
+          chmod +x chromedriver-linux64/chromedriver
+          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
+
+      - name: Kill any running Chrome processes
+        run: |
+          pkill -f chrome || true
 
       - name: Run setup script
         run: bash setup.sh

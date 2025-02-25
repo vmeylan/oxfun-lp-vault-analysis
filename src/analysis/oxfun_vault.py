@@ -129,6 +129,7 @@ def main():
         chrome_options.add_argument('--start-maximized')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--disable-popup-blocking')
+        chrome_options.add_argument("--user-data-dir=/tmp/chrome-profile")  # Unique profile dir
         chrome_options.add_argument('--disable-web-security')
         chrome_options.add_argument('--allow-running-insecure-content')
         chrome_options.add_argument('--ignore-certificate-errors')
